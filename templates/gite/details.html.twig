@@ -1,0 +1,71 @@
+{% extends "base.html.twig" %}
+
+{% block title %}Les Gites{% endblock %}
+ 
+{% block body %}
+    <main class="container">
+        <section class="row">
+            <div class="col-12">
+                <h1>{{ gite.nomGite }}</h1>
+            </div>
+            <ul class="list-group">
+                <li class="list-group-item active">Localisation</li>
+                <li class="list-group-item">Adresse : {{ gite.adresse }}</li>
+                <li class="list-group-item">Ville : {{ gite.ville }}</li>
+                <li class="list-group-item">Code postal : {{ gite.cp }}</li>
+                <li class="list-group-item">Département : {{ gite.departement }}</li>
+                <li class="list-group-item">Région : {{ gite.region }}</li>
+            </ul>
+            <ul class="list-group">
+                <li class="list-group-item active">Détails</li>
+                <li class="list-group-item">Superficie : {{ gite.superficie }} m2</li>
+                <li class="list-group-item">Nombre de chambre : {{ gite.nombreChambre }}</li>
+                <li class="list-group-item">Nombre de couchage : {{ gite.nombreCouchage }}</li>
+            </ul>
+            <ul class="list-group">
+                <li class="list-group-item active">Equipements</li>
+                <li class="list-group-item">Lave vaisselle : {{ gite.equipement.laveVaisselle ? 'Oui' : 'Non'}}</li>
+                <li class="list-group-item">Lave linge : {{ gite.equipement.laveLinge ? 'Oui' : 'Non'}}</li>
+                <li class="list-group-item">Climatisation : {{ gite.equipement.climatisation ? 'Oui' : 'Non'}}</li>
+                <li class="list-group-item">Télévision : {{ gite.equipement.television ? 'Oui' : 'Non'}}</li>
+                <li class="list-group-item">Terasse : {{ gite.equipement.terasse ? 'Oui' : 'Non'}}</li>
+                <li class="list-group-item">Barbecue : : {{ gite.equipement.barbecue ? 'Oui' : 'Non'}}</li>
+                <li class="list-group-item">Piscinie privée : {{ gite.equipement.piscinePrivee ? 'Oui' : 'Non'}}</li>
+                <li class="list-group-item">Piscine collective : {{ gite.equipement.piscineCollective ? 'Oui' : 'Non'}}</li>
+                <li class="list-group-item">Tennis : {{ gite.equipement.tennis ? 'Oui' : 'Non'}}</li>
+                <li class="list-group-item">Ping-pong : {{ gite.equipement.pingPong ? 'Oui' : 'Non'}}</li>
+                <li class="list-group-item">Wifi : {{ gite.equipement.wifi ? 'Oui' : 'Non'}}</li>
+            </ul>
+            <ul class="list-group">
+                <li class="list-group-item active">Service(s)</li>
+                {% for servicePayant in gite.servicePayants %}
+                <li class="list-group-item">{{ servicePayant.nomService }} : {{ servicePayant.supplement }}€</li>
+                {% endfor %}
+            </ul>
+            <ul class="list-group">
+                <li class="list-group-item active">Propriétaire</li>
+                <li class="list-group-item">{{ gite.proprietaire.prenomProprietaire }} {{ gite.proprietaire.nomProprietaire }}</li>
+                <li class="list-group-item">Numéro de téléphone : {{ gite.proprietaire.telephone }}</li>
+                <li class="list-group-item">E-mail : {{ gite.proprietaire.email }}</li>
+                <li class="list-group-item">Joignable : {{ gite.proprietaire.disponibiliteProprietaire }}</li>
+            </ul>
+            <ul class="list-group">
+                <li class="list-group-item active">Contact</li>
+                {% if gite.contact %}
+                <li class="list-group-item">{{ gite.contact.prenomContact }} {{ gite.contact.nomContact }}</li>
+                <li class="list-group-item">Numéro de téléphone : {{ gite.contact.telephone }}</li>
+                <li class="list-group-item">E-mail : {{ gite.contact.email }}</li>
+                <li class="list-group-item">Joignable : {{ gite.contact.disponibiliteContact }}</li>
+                {% else %}
+                <li class="list-group-item">Vide</li>
+                {% endif %}
+            </ul>
+            <ul class="list-group">
+                <li class="list-group-item active">Tarifs hebdomadaire</li>
+                {% for tarif in gite.tarif %}
+                <li class="list-group-item">{{ tarif.nomPeriode }} (du {{ tarif.dateDebut|date('d/m/Y') }} au {{ tarif.dateFin|date('d/m/Y') }}) : {{ tarif.prix }}€</li>
+                {% endfor %}
+            </ul>
+        </section>
+    </main>
+{% endblock %}

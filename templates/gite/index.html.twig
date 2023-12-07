@@ -1,0 +1,30 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Les gites{% endblock %}
+
+{% block body %}
+    <main class="container">
+        <section class="row">
+            <div class="col-12">
+                <h1>Les gites</h1>
+                {% include "form/_search_data.html.twig" with {
+                    form: form
+                } only %}
+            </div>
+            {% for gite in gites %}
+                <div class="col-3">
+                    <div class="card">
+                        <div class="card-body">
+                            <h2 class="card-title">{{ gite.nomGite }}</h2>
+                            <p class="card-text">{{ gite.ville }}</p>
+                            <p class="card-text">Séjournez chez {{ gite.proprietaire.prenomProprietaire }} {{ gite.proprietaire.nomProprietaire }}</p>
+                            <p class="card-text">Nombre de chambre(s) : {{ gite.nombreChambre }}</p>
+                            <p class="card-text">Nombre de couchage(s) : {{ gite.nombreCouchage }}</p>
+                            <a href="{{ path('app_gite_app_details', {'id': gite.id}) }}" class="btn btn-secondary">Voir les détails</a>
+                        </div>
+                    </div>
+                </div>
+            {% endfor %}
+        </section>
+    </main>
+{% endblock %}
